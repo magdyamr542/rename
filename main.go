@@ -57,14 +57,12 @@ func main() {
 	}
 
 	for _, file := range matches {
-		if !file.IsDir() && strings.Contains(file.Name(), pattern) {
-			newName := strings.Replace(file.Name(), pattern, newPattern, -1)
-			oldPath := path.Join(dir, file.Name())
-			newPath := path.Join(dir, newName)
-			err := os.Rename(oldPath, newPath)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "error: failed to rename %v. %v\n", oldPath, err.Error())
-			}
+		newName := strings.Replace(file.Name(), pattern, newPattern, -1)
+		oldPath := path.Join(dir, file.Name())
+		newPath := path.Join(dir, newName)
+		err := os.Rename(oldPath, newPath)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error: failed to rename %v. %v\n", oldPath, err.Error())
 		}
 	}
 
